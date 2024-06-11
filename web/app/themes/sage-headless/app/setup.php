@@ -75,6 +75,8 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#responsive-embedded-content
      */
     add_theme_support('responsive-embeds');
+    add_theme_support( 'align-wide' );
+
 
     /**
      * Enable HTML5 markup support.

@@ -73,6 +73,10 @@ export default async (app) => {
       typography: {
         customFontSize: false,
       },
+      layout: {
+        contentSize: '856px',
+        wideSize: '1300px',
+      },
     })
     .useTailwindColors()
     .useTailwindFontFamily()

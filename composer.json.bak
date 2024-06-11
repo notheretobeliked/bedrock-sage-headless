@@ -1,7 +1,6 @@
 {
   "name": "roots/bedrock",
   "type": "project",
-  "version": "1.0.0",
   "license": "MIT",
   "description": "WordPress boilerplate with Composer, easier configuration, and an improved folder structure",
   "homepage": "https://roots.io/bedrock/",
@@ -31,16 +30,12 @@
       "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
     },
     {
+      "type": "vcs",
+      "url": "https://github.com/wpengine/wp-graphql-content-blocks.git"
+    },
+    {
       "type": "composer",
       "url": "https://connect.advancedcustomfields.com"
-    },
-    {
-      "url": "https://github.com/wpengine/wp-graphql-content-blocks.git",
-      "type": "git"
-    },
-    {
-      "url": "https://github.com/wp-graphql/wpgraphql-acf.git",
-      "type": "git"
     }
   ],
   "require": {
@@ -50,25 +45,23 @@
     "oscarotero/env": "^2.1",
     "roots/bedrock-autoloader": "^1.0",
     "roots/bedrock-disallow-indexing": "^2.0",
-    "roots/wordpress": "6.4.3",
+    "roots/wordpress": "6.5.3",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
-    "wpengine/advanced-custom-fields-pro": "*",
     "wpackagist-theme/twentytwentyfour": "^1.0",
-    "roots/acorn": "^4.0",
-    "wp-graphql/wp-graphql": "^1.21",
+    "roots/acorn": "^4.2",
+    "wp-graphql/wp-graphql": "1.23.0",
     "wp-graphql/wpgraphql-acf": "2.1.2",
     "wpengine/wp-graphql-content-blocks": "*",
-    "wpackagist-plugin/performance-lab": "^2.9",
-    "wpackagist-plugin/webp-uploads": "^1.0",
-    "log1x/poet": "^2.0",
-    "wpackagist-plugin/alttext-ai": "^1.3",
-    "wpackagist-plugin/faustwp": "^1.2",
-    "yoast/wordpress-seo": "^22.4",
-    "ashhitch/wp-graphql-yoast-seo": "^4.22",
-    "wpackagist-plugin/simple-custom-post-order": "^2.5",
-    "doreybenjamin/wp-webhook-vercel-deploy": "^1.0",
-    "log1x/acf-editor-palette": "^1.1"
+    "wpackagist-plugin/performance-lab": "^3",
+    "wpackagist-plugin/webp-uploads": "^2",
+    "log1x/poet": "^2",
+    "wpackagist-plugin/faustwp": "^1",
+    "yoast/wordpress-seo": "^22",
+    "ashhitch/wp-graphql-yoast-seo": "^4",
+    "wpackagist-plugin/simple-custom-post-order": "^2",
+    "doreybenjamin/wp-webhook-vercel-deploy": "^1",
+    "wpengine/advanced-custom-fields-pro": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

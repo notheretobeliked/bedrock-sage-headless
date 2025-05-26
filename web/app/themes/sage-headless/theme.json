@@ -92,22 +92,22 @@
         },
         {
           "name": "base",
-          "size": "1rem",
+          "size": "1.2rem",
           "slug": "base"
         },
         {
           "name": "lg",
-          "size": "1.125rem",
+          "size": "1.35rem",
           "slug": "lg"
         },
         {
           "name": "xl",
-          "size": "1.25rem",
+          "size": "1.5rem",
           "slug": "xl"
         },
         {
           "name": "2xl",
-          "size": "1.5rem",
+          "size": "1.7rem",
           "slug": "2xl"
         },
         {
@@ -127,23 +127,8 @@
         },
         {
           "name": "6xl",
-          "size": "3.75rem",
+          "size": "4rem",
           "slug": "6xl"
-        },
-        {
-          "name": "7xl",
-          "size": "4.5rem",
-          "slug": "7xl"
-        },
-        {
-          "name": "8xl",
-          "size": "6rem",
-          "slug": "8xl"
-        },
-        {
-          "name": "9xl",
-          "size": "8rem",
-          "slug": "9xl"
         }
       ]
     },

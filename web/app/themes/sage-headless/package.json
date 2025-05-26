@@ -22,5 +22,8 @@
     "@roots/bud": "6.20.0",
     "@roots/bud-tailwindcss": "6.20.0",
     "@roots/sage": "6.20.0"
+  },
+  "dependencies": {
+    "tailwindcss-fluid-type": "^2.0.7"
   }
 }

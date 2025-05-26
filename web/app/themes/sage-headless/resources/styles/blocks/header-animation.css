@@ -1,0 +1,10 @@
+.wp-block-app-header-animation h1 {
+    font-family: 'Anton', sans-serif !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+}
+
+/* Add the fluid text size using the plugin's class */
+.wp-block-app-header-animation h1 {
+    font-size: var(--fluid-text-lg) !important;
+} 

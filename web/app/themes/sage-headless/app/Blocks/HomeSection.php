@@ -168,6 +168,6 @@ class HomeSection extends Block
      */
     public function assets(array $block): void
     {
-        //
+        wp_enqueue_style('home-section', asset('styles/blocks/home-section.css')->uri(), [], null);
     }
 }

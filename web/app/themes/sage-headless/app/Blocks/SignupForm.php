@@ -112,25 +112,6 @@ class SignupForm extends Block
         ],
     ];
 
-    /**
-     * The block styles.
-     *
-     * @var array
-     */
-    public $styles = ['light', 'dark'];
-
-    /**
-     * The block preview example data.
-     *
-     * @var array
-     */
-    public $example = [
-        'items' => [
-            ['item' => 'Item one'],
-            ['item' => 'Item two'],
-            ['item' => 'Item three'],
-        ],
-    ];
 
     /**
      * The block template.
@@ -148,7 +129,11 @@ class SignupForm extends Block
     public function with(): array
     {
         return [
-            'items' => $this->items(),
+            'email' => get_field("email_field"),
+            'phone' => get_field("phone_field"),
+            'postcode' => get_field("postcode_field"),
+            'union_list' => get_field("union_list"),
+            'workplace' => get_field("workplace"),
         ];
     }
 
@@ -160,22 +145,30 @@ class SignupForm extends Block
         $signupForm = Builder::make('signup_form');
 
         $signupForm
-            ->addRepeater('items')
-                ->addText('item')
-            ->endRepeater();
+            ->addText('form_id', [
+                'label' => 'AN form ID',
+                'required' => 1,
+                'default_value' => '1e49bee5-7886-4cc3-9ab5-b987ccce6139',
+            ])
+            ->addTrueFalse('email_field', [
+                'ui' => true,
+            ])
+            ->addTrueFalse('phone_field', [
+                'ui' => true,
+            ])
+            ->addTrueFalse('postcode_field', [
+                'ui' => true,
+            ])
+            ->addTrueFalse('union_list', [
+                'ui' => true,
+            ])
+            ->addTrueFalse('workplace', [
+                'ui' => true,
+            ]);
 
         return $signupForm->build();
     }
 
-    /**
-     * Retrieve the items.
-     *
-     * @return array
-     */
-    public function items()
-    {
-        return get_field('items') ?: $this->example['items'];
-    }
 
     /**
      * Assets enqueued when rendering the block.

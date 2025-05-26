@@ -1,5 +1,12 @@
-<div class="{{ $block->classes }}" style="{{ $block->inlineStyle }}">
-  <div class="max-w-screen-lg mx-auto">
-    <InnerBlocks template="{{ $block->template }}" />
-  </div>
+<div class="{{ $block->classes }} home-section" style="{{ $block->inlineStyle }}">
+    <div class="px-2 md:px-0 py-4">
+        <div class="m-auto max-w-">
+            
+            <div class="max-w-[852px] mx-auto">
+                <InnerBlocks />
+            </div>
+        </div>
+    </div>
 </div>
+
+

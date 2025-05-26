@@ -190,6 +190,24 @@ class HeaderAnimation extends Block
      */
     public function assets(array $block): void
     {
-        //
+        wp_enqueue_style('header-animation', asset('styles/blocks/header-animation.css')->uri(), [], null);
+    }
+
+    /**
+     * The block preview example data.
+     *
+     * @return array
+     */
+    public function example(): array
+    {
+        return [
+            'statements' => [
+                [
+                    'statement' => 'Example Statement',
+                    'bgcolor' => 'caution',
+                    'textcolor' => 'black',
+                ],
+            ],
+        ];
     }
 }

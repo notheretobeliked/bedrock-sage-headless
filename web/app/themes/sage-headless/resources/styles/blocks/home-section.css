@@ -1,0 +1,6 @@
+.wp-block-acf-home-section h1 {
+    font-family: 'Anton', sans-serif !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    font-size: var(--fluid-text-lg) !important;
+} 

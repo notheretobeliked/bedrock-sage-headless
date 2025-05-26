@@ -102,6 +102,34 @@ add_action('after_setup_theme', function () {
 }, 20);
 
 /**
+ * 
+ * Hack ACF/Graphql to allow querying 'align' on 'attributes'.
+ * 
+ */
+
+// Try to intercept before WPGraphQL processes the block type
+add_filter('register_block_type_args', function($args, $name) {
+    if (isset($args['attributes']['align'])) {
+        $args['attributes']['align'] = [
+            'type' => 'string',
+            'default' => null,
+            '__experimentalRole' => 'content',
+            'source' => 'attribute',
+            'selector' => '[class*="align"]',
+            'extractValue' => function($value) {
+                if (preg_match('/align(full|wide|left|right|center)/', $value, $matches)) {
+                    return $matches[1];
+                }
+                return null;
+            }
+        ];
+    }
+    return $args;
+}, 20, 2);
+
+
+
+/**
  * Register the theme sidebars.
  *
  * @return void

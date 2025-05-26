@@ -9,8 +9,22 @@
   @apply font-sans;
 
   h1,
-  h2,
-  h3 {
+  h2 {
     @apply font-anton text-2xl;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply mt-6 mb-4;
+  }
+
+  p {
+    @apply font-sans text-sm md:text-base mb-4;
+  }
+  .wp-block-acf-home-section h1 {
+    @apply !font-anton !fluid-text-lg !uppercase !text-center !my-8;
   }
 }

@@ -1,3 +1,8 @@
 path: web/wp
 server:
   docroot: web
+
+@prod:
+  ssh: forge@mick.heatstrike.uk:/home/forge/mick.heatstrike.uk/current
+
+@dev: ''

@@ -50,25 +50,36 @@
     "oscarotero/env": "^2.1",
     "roots/bedrock-autoloader": "^1.0",
     "roots/bedrock-disallow-indexing": "^2.0",
-    "roots/wordpress": "6.4.3",
+    "roots/wordpress": "^6.8",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
     "wpengine/advanced-custom-fields-pro": "*",
     "wpackagist-theme/twentytwentyfour": "^1.0",
     "roots/acorn": "^4.0",
     "wp-graphql/wp-graphql": "^1.21",
-    "wp-graphql/wpgraphql-acf": "2.1.2",
     "wpengine/wp-graphql-content-blocks": "*",
-    "wpackagist-plugin/performance-lab": "^2.9",
-    "wpackagist-plugin/webp-uploads": "^1.0",
-    "log1x/poet": "^2.0",
+   
     "wpackagist-plugin/alttext-ai": "^1.3",
     "wpackagist-plugin/faustwp": "^1.2",
-    "yoast/wordpress-seo": "^22.4",
-    "ashhitch/wp-graphql-yoast-seo": "^4.22",
-    "wpackagist-plugin/simple-custom-post-order": "^2.5",
-    "doreybenjamin/wp-webhook-vercel-deploy": "^1.0",
-    "log1x/acf-editor-palette": "^1.1"
+
+
+    
+    
+    "log1x/acf-editor-palette": "^1.1",
+
+    
+    
+    
+    "wpackagist-plugin/performance-lab": "^3",
+    "wpackagist-plugin/webp-uploads": "^2",
+    "log1x/poet": "^2",
+
+    "yoast/wordpress-seo": "^24",
+    "ashhitch/wp-graphql-yoast-seo": "^4",
+    "wpackagist-plugin/simple-custom-post-order": "^2",
+    "doreybenjamin/wp-webhook-vercel-deploy": "^1",
+    
+    "wp-graphql/wpgraphql-acf": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
@@ -79,7 +90,8 @@
     "preferred-install": "dist",
     "allow-plugins": {
       "composer/installers": true,
-      "roots/wordpress-core-installer": true
+      "roots/wordpress-core-installer": true,
+      "cweagans/composer-patches": true
     }
   },
   "minimum-stability": "dev",

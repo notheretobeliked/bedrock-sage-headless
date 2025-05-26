@@ -3985,9 +3985,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001286, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001517, caniuse-lite@npm:^1.0.30001538, caniuse-lite@npm:^1.0.30001565":
-  version: 1.0.30001629
-  resolution: "caniuse-lite@npm:1.0.30001629"
-  checksum: 10c0/e95136a423c0c5e7f9d026ef3f9be8d06cadc4c83ad65eedfaeaba6b5eb814489ea186e90bae1085f3be7348577e25f8fe436b384c2f983324ad8dea4a7dfe1d
+  version: 1.0.30001718
+  resolution: "caniuse-lite@npm:1.0.30001718"
+  checksum: 10c0/67f9ad09bc16443e28d14f265d6e468480cd8dc1900d0d8b982222de80c699c4f2306599c3da8a3fa7139f110d4b30d49dbac78f215470f479abb6ffe141d5d3
   languageName: node
   linkType: hard
 
@@ -9356,6 +9356,7 @@ __metadata:
     "@roots/bud": "npm:6.20.0"
     "@roots/bud-tailwindcss": "npm:6.20.0"
     "@roots/sage": "npm:6.20.0"
+    tailwindcss-fluid-type: "npm:^2.0.7"
   languageName: unknown
   linkType: soft
 
@@ -9918,6 +9919,15 @@ __metadata:
     "@swc/core": ^1.2.147
     webpack: ">=2"
   checksum: 10c0/cb3f9b116fbd292b881e804a4fe66cd6d543a7de2572f5a68e067e4780ee2d59a8da87a90736ba6e8e286e4368c98214ae3486b1b872080292814e5d3062f09c
+  languageName: node
+  linkType: hard
+
+"tailwindcss-fluid-type@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "tailwindcss-fluid-type@npm:2.0.7"
+  peerDependencies:
+    tailwindcss: ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
+  checksum: 10c0/b5962e9514a86acf20036d2053dbd6d00be024f454f752b8df618d4dc2cbcf0a9e7492a65b6930b0ce009301915d2bd47de08975ededfba0153fa240b46c3ec6
   languageName: node
   linkType: hard
 

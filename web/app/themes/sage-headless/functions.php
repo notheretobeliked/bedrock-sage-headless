@@ -22,7 +22,7 @@ require $composer;
 | Register The Bootloader
 |--------------------------------------------------------------------------
 |
-| The first thing we will do is schedule a new Acorn application container
+| The first thing we will do is schedule a new Acorn application instance
 | to boot when WordPress is finished loading the theme. The application
 | serves as the "glue" for all the components of Laravel and is
 | the IoC container for the system binding all of the various parts.
@@ -40,7 +40,54 @@ if (! function_exists('\Roots\bootloader')) {
     );
 }
 
-\Roots\bootloader()->boot();
+use Roots\Acorn\Application;
+
+add_action('after_setup_theme', function () {
+    Application::configure()
+        ->withProviders([
+            App\Providers\ThemeServiceProvider::class,
+        ])
+        ->withRouting(wordpress: true)
+        ->boot();
+}, 0);
+
+// Register custom GraphQL field for ticker number
+add_action('graphql_register_types', function () {
+    register_graphql_field('AcfTickerNumber_TickerNumber', 'currentCount', [
+        'type' => 'Int',
+        'description' => 'The current calculated ticker count including increment',
+        'resolve' => function ($root, $args, $context, $info) {
+            // Get the block data from the root
+            $block_data = $root;
+            
+            // Get increment_by value from the ACF field data
+            $increment_by = isset($block_data['incrementBy']) ? (int) $block_data['incrementBy'] : 0;
+            
+            // Get the base count from WordPress options
+            $base_count = (int) get_option('an_subscriber_count', 0);
+            
+            // Return the calculated total
+            return $base_count + $increment_by;
+        }
+    ]);
+});
+
+// Also add a field for the last updated timestamp
+add_action('graphql_register_types', function () {
+    register_graphql_field('AcfTickerNumber_TickerNumber', 'lastUpdated', [
+        'type' => 'String',
+        'description' => 'When the subscriber count was last updated',
+        'resolve' => function ($root, $args, $context, $info) {
+            $timestamp = get_option('an_subscriber_count_timestamp', '');
+            
+            if ($timestamp) {
+                return date('c', $timestamp); // ISO 8601 format
+            }
+            
+            return null;
+        }
+    ]);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +101,7 @@ if (! function_exists('\Roots\bootloader')) {
 |
 */
 
-collect(['setup', 'filters'])
+collect(['preview-integration', 'setup', 'filters'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {
             wp_die(

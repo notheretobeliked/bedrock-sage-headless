@@ -30,7 +30,7 @@ add_action('transition_post_status', function ($new_status, $old_status, $post) 
     }
 
     // Only fire for specific post types
-    $allowed_post_types = ['post', 'page', 'press_releases'];
+    $allowed_post_types = ['post', 'page'];
     if (!in_array($post->post_type, $allowed_post_types)) {
         return;
     }

@@ -8,30 +8,19 @@ namespace App\Preview;
 add_post_type_support('page', 'revisions');
 
 /**
- * Get frontend URLs based on environment
+ * Get frontend URLs based on FRONTEND_HOST environment variable
  */
 function get_frontend_urls() {
-    // Get environment from WP_ENV constant (set in Bedrock)
-    $env = defined('WP_ENV') ? WP_ENV : 'production';
-    
-    switch ($env) {
-        case 'development':
-            return [
-                'frontend' => 'http://localhost:5173',
-                'allowed_origins' => ['http://localhost:5173']
-            ];
-        case 'staging':
-            return [
-                'frontend' => 'https://staging.heatstrike.uk', // If you have staging
-                'allowed_origins' => ['https://staging.heatstrike.uk']
-            ];
-        case 'production':
-        default:
-            return [
-                'frontend' => 'https://heatstrike.uk',
-                'allowed_origins' => ['https://heatstrike.uk']
-            ];
-    }
+    // Get FRONTEND_HOST from environment (set in .env)
+    $frontend_host = env('FRONTEND_HOST') ?: 'http://localhost:5173';
+
+    // Remove trailing slash if present
+    $frontend_host = rtrim($frontend_host, '/');
+
+    return [
+        'frontend' => $frontend_host,
+        'allowed_origins' => [$frontend_host]
+    ];
 }
 
 /**

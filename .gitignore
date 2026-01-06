@@ -7,6 +7,8 @@ web/app/upgrade
 web/app/uploads/*
 !web/app/uploads/.gitkeep
 web/app/cache/*
+web/app/object-cache.php
+web/app/languages
 
 # WordPress
 web/wp

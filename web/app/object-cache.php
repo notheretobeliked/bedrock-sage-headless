@@ -3,7 +3,7 @@
  * Plugin Name: Performance Lab Server Timing Object Cache Drop-In
  * Plugin URI: https://github.com/WordPress/performance
  * Description: Performance Lab drop-in to register Server-Timing metrics early. This is not a real object cache drop-in and will not override other actual object cache drop-ins.
- * Version: 2
+ * Version: 3
  * Author: WordPress Performance Team
  * Author URI: https://make.wordpress.org/performance/
  * License: GPLv2 or later
@@ -28,13 +28,15 @@
  * @since 1.8.0
  */
 
+// @codeCoverageIgnoreStart
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+// @codeCoverageIgnoreEnd
 
 // Set constant to be able to later check for whether this file was loaded.
 if ( ! defined( 'PERFLAB_OBJECT_CACHE_DROPIN_VERSION' ) ) {
-	define( 'PERFLAB_OBJECT_CACHE_DROPIN_VERSION', 2 );
+	define( 'PERFLAB_OBJECT_CACHE_DROPIN_VERSION', 3 );
 }
 
 if ( ! function_exists( 'perflab_load_server_timing_api_from_dropin' ) ) {
@@ -47,7 +49,7 @@ if ( ! function_exists( 'perflab_load_server_timing_api_from_dropin' ) ) {
 	 *
 	 * @since 1.8.0
 	 */
-	function perflab_load_server_timing_api_from_dropin() {
+	function perflab_load_server_timing_api_from_dropin(): void {
 		if ( defined( 'PERFLAB_DISABLE_SERVER_TIMING' ) && PERFLAB_DISABLE_SERVER_TIMING ) {
 			return;
 		}
@@ -58,17 +60,17 @@ if ( ! function_exists( 'perflab_load_server_timing_api_from_dropin' ) ) {
 
 		$plugins_dir = defined( 'WP_PLUGIN_DIR' ) ? WP_PLUGIN_DIR : WP_CONTENT_DIR . '/plugins';
 		$plugin_dir  = $plugins_dir . '/performance-lab/';
-		if ( ! file_exists( $plugin_dir . 'server-timing/load.php' ) ) {
+		if ( ! file_exists( $plugin_dir . 'includes/server-timing/load.php' ) ) {
 			$plugin_dir = $plugins_dir . '/performance/';
-			if ( ! file_exists( $plugin_dir . 'server-timing/load.php' ) ) {
+			if ( ! file_exists( $plugin_dir . 'includes/server-timing/load.php' ) ) {
 				return;
 			}
 		}
 
-		require_once $plugin_dir . 'server-timing/class-perflab-server-timing-metric.php';
-		require_once $plugin_dir . 'server-timing/class-perflab-server-timing.php';
-		require_once $plugin_dir . 'server-timing/load.php';
-		require_once $plugin_dir . 'server-timing/defaults.php';
+		require_once $plugin_dir . 'includes/server-timing/class-perflab-server-timing-metric.php';
+		require_once $plugin_dir . 'includes/server-timing/class-perflab-server-timing.php';
+		require_once $plugin_dir . 'includes/server-timing/load.php';
+		require_once $plugin_dir . 'includes/server-timing/defaults.php';
 	}
 }
 perflab_load_server_timing_api_from_dropin();

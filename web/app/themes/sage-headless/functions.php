@@ -40,16 +40,7 @@ if (! function_exists('\Roots\bootloader')) {
     );
 }
 
-use Roots\Acorn\Application;
-
-add_action('after_setup_theme', function () {
-    Application::configure()
-        ->withProviders([
-            App\Providers\ThemeServiceProvider::class,
-        ])
-        ->withRouting(wordpress: true)
-        ->boot();
-}, 0);
+\Roots\bootloader()->boot();
 
 // Register custom GraphQL field for ticker number
 add_action('graphql_register_types', function () {

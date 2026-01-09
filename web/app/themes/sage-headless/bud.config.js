@@ -66,6 +66,10 @@ export default async (app) => {
           'line-height': {},
         },
       },
+      layout: {
+        contentSize: '768px',
+        wideSize: '1100px',
+      },
       spacing: {
         padding: true,
         units: ['px', '%', 'em', 'rem', 'vw', 'vh'],

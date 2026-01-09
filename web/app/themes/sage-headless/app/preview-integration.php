@@ -159,14 +159,14 @@ add_filter('preview_post_link', function($preview_link, $post) {
         return $preview_link;
     }
     
-    // Create preview URL with token
+    // Create preview URL with token - routes to /preview in SvelteKit
     switch ($post->post_type) {
         case 'post':
-            return $frontend_url . '/?preview=true&p=' . $post->ID . '&token=' . $token;
+            return $frontend_url . '/preview?p=' . $post->ID . '&token=' . $token;
         case 'page':
-            return $frontend_url . '/?preview=true&page_id=' . $post->ID . '&token=' . $token;
+            return $frontend_url . '/preview?page_id=' . $post->ID . '&token=' . $token;
         default:
-            return $frontend_url . '/?preview=true&p=' . $post->ID . '&post_type=' . $post->post_type . '&token=' . $token;
+            return $frontend_url . '/preview?p=' . $post->ID . '&post_type=' . $post->post_type . '&token=' . $token;
     }
 }, 10, 2);
 
@@ -177,10 +177,10 @@ add_filter('page_link', function($link, $post_id, $sample) {
     if ($sample) { // This indicates it's a preview
         $urls = get_frontend_urls();
         $frontend_url = $urls['frontend'];
-        
+
         $token = generate_preview_token($post_id);
         if ($token) {
-            return $frontend_url . '/?preview=true&page_id=' . $post_id . '&token=' . $token;
+            return $frontend_url . '/preview?page_id=' . $post_id . '&token=' . $token;
         }
     }
     return $link;
@@ -193,10 +193,10 @@ add_filter('get_sample_permalink', function($permalink, $post_id, $title, $name,
     if (is_admin()) {
         $urls = get_frontend_urls();
         $frontend_url = $urls['frontend'];
-        
+
         $token = generate_preview_token($post_id);
         if ($token && isset($permalink[0])) {
-            $preview_url = $frontend_url . '/?preview=true&';
+            $preview_url = $frontend_url . '/preview?';
             if ($post->post_type === 'page') {
                 $preview_url .= 'page_id=' . $post_id;
             } else {
@@ -248,6 +248,56 @@ add_action('rest_api_init', function() {
         'permission_callback' => '__return_true'
     ));
 });
+
+/**
+ * Early authentication via determine_current_user filter
+ * This runs before most WordPress authentication checks
+ * Priority 20 is after default authentication but before most plugins
+ */
+add_filter('determine_current_user', function($user_id) {
+    // Only process if no user is logged in yet
+    if ($user_id) {
+        return $user_id;
+    }
+
+    $token = get_preview_token_from_request();
+
+    if ($token) {
+        $token_data = get_transient('preview_token_' . $token);
+
+        if ($token_data && isset($token_data['user_id'])) {
+            return $token_data['user_id'];
+        }
+    }
+
+    return $user_id;
+}, 20);
+
+/**
+ * Helper function to extract preview token from request
+ */
+function get_preview_token_from_request() {
+    $token = null;
+
+    // Check for token in headers (case-insensitive)
+    if (function_exists('getallheaders')) {
+        $headers = getallheaders();
+        // Headers can be case-insensitive, check common variations
+        $token = $headers['X-Preview-Token'] ?? $headers['x-preview-token'] ?? $headers['X-PREVIEW-TOKEN'] ?? null;
+    }
+
+    // Fallback to $_SERVER (Apache/nginx normalize to HTTP_X_PREVIEW_TOKEN)
+    if (!$token && isset($_SERVER['HTTP_X_PREVIEW_TOKEN'])) {
+        $token = $_SERVER['HTTP_X_PREVIEW_TOKEN'];
+    }
+
+    // Check query parameter
+    if (!$token && isset($_GET['token'])) {
+        $token = $_GET['token'];
+    }
+
+    return $token;
+}
 
 /**
  * Add GraphQL authentication hook to validate preview tokens

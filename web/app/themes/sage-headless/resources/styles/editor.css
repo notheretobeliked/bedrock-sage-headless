@@ -1,0 +1,135 @@
+/**
+ * Editor styles to match frontend SvelteKit app
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base editor styles */
+.editor-styles-wrapper {
+	@apply font-sans text-base text-black;
+}
+
+/* Paragraphs */
+.editor-styles-wrapper p,
+.editor-styles-wrapper .wp-block-paragraph {
+	@apply font-sans text-base mb-4;
+}
+
+/* Headings */
+.editor-styles-wrapper h1,
+.editor-styles-wrapper .wp-block-heading h1 {
+	@apply font-sans text-2xl mb-4;
+}
+
+.editor-styles-wrapper h2,
+.editor-styles-wrapper .wp-block-heading h2 {
+	@apply font-sans text-xl mb-3;
+}
+
+.editor-styles-wrapper h3,
+.editor-styles-wrapper .wp-block-heading h3 {
+	@apply font-sans text-lg mb-3;
+}
+
+.editor-styles-wrapper h4,
+.editor-styles-wrapper .wp-block-heading h4 {
+	@apply font-sans text-base mb-2;
+}
+
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6,
+.editor-styles-wrapper .wp-block-heading h5,
+.editor-styles-wrapper .wp-block-heading h6 {
+	@apply font-sans text-sm mb-2;
+}
+
+/* Lists */
+.editor-styles-wrapper ul,
+.editor-styles-wrapper ol,
+.editor-styles-wrapper .wp-block-list {
+	@apply font-sans text-base mb-4 pl-6;
+}
+
+.editor-styles-wrapper ul,
+.editor-styles-wrapper ul.wp-block-list {
+	@apply list-disc;
+}
+
+.editor-styles-wrapper ol,
+.editor-styles-wrapper ol.wp-block-list {
+	@apply list-decimal;
+}
+
+.editor-styles-wrapper li {
+	@apply mb-1;
+}
+
+.editor-styles-wrapper h1.wp-block-post-title {
+    @apply text-base text-left mb-8;
+}
+
+/* Links */
+.editor-styles-wrapper a {
+	@apply border-b border-dotted border-blue no-underline;
+}
+
+.editor-styles-wrapper a:hover {
+	@apply text-blue;
+}
+
+/* Footnote links */
+.editor-styles-wrapper sup a {
+	@apply border-none text-blue;
+}
+
+/* Strong/bold text */
+.editor-styles-wrapper strong,
+.editor-styles-wrapper b {
+	@apply font-semibold;
+}
+
+/* Alignwide */
+.editor-styles-wrapper .alignwide {
+	@apply max-w-[1100px] mx-auto;
+}
+
+/* Responsive heading sizes for larger screens */
+@screen md {
+	.editor-styles-wrapper h1,
+	.editor-styles-wrapper .wp-block-heading h1 {
+		@apply text-3xl;
+	}
+
+	.editor-styles-wrapper h2,
+	.editor-styles-wrapper .wp-block-heading h2 {
+		@apply text-2xl;
+	}
+
+	.editor-styles-wrapper h3,
+	.editor-styles-wrapper .wp-block-heading h3 {
+		@apply text-xl;
+	}
+
+	.editor-styles-wrapper h4,
+	.editor-styles-wrapper .wp-block-heading h4 {
+		@apply text-lg;
+	}
+
+	.editor-styles-wrapper h5,
+	.editor-styles-wrapper h6,
+	.editor-styles-wrapper .wp-block-heading h5,
+	.editor-styles-wrapper .wp-block-heading h6 {
+		@apply text-base;
+	}
+}
+
+@screen lg {
+	.editor-styles-wrapper h1,
+	.editor-styles-wrapper .wp-block-heading h1 {
+		@apply text-4xl;
+	}
+}

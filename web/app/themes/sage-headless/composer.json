@@ -4,6 +4,12 @@
   "license": "MIT",
   "description": "WordPress starter theme with a modern development workflow",
   "homepage": "https://roots.io/sage/",
+  "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/dsturm/acf-composer"
+    }
+  ],
   "authors": [
     {
       "name": "Ben Word",
@@ -40,7 +46,7 @@
   },
   "require": {
     "php": ">=8.1",
-    "log1x/acf-composer": "^3.0"
+    "log1x/acf-composer": "dev-ft-inline-editing-acf-6-7"
   },
   "require-dev": {
     "laravel/pint": "^1.13"

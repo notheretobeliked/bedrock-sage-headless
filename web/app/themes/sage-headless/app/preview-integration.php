@@ -148,14 +148,15 @@ add_filter('preview_post_link', function($preview_link, $post) {
     if (!is_user_logged_in()) {
         return $preview_link;
     }
-    
+
     $urls = get_frontend_urls();
     $frontend_url = $urls['frontend'];
-    
+
     // Generate preview token
     $token = generate_preview_token($post->ID);
-    
+
     if (!$token) {
+        error_log('preview_post_link: token generation failed');
         return $preview_link;
     }
     

@@ -1,3 +1,8 @@
 path: web/wp
 server:
   docroot: web
+
+@staging:
+  ssh: user@staging.example.com:/home/user/staging.example.com/current
+
+@dev: ''

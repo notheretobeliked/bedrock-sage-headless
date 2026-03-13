@@ -81,6 +81,22 @@ add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
 
     /**
+     * Replace default WordPress image sizes with responsive-friendly ones.
+     * Width-only with proportional height for better srcset generation.
+     */
+    remove_image_size('thumbnail');
+    remove_image_size('medium');
+    remove_image_size('medium_large');
+    remove_image_size('large');
+
+    add_image_size('thumbnail', 300, 0, false);
+    add_image_size('small', 600, 0, false);
+    add_image_size('medium', 900, 0, false);
+    add_image_size('medium_large', 1200, 0, false);
+    add_image_size('large', 1600, 0, false);
+    add_image_size('x_large', 2400, 0, false);
+
+    /**
      * Enable responsive embed support.
      *
      * @link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#responsive-embedded-content
@@ -118,6 +134,76 @@ add_action('after_setup_theme', function () {
  */
 add_action('admin_menu', function () {
     remove_menu_page('edit-comments.php');
+});
+
+/**
+ * Restrict available Gutenberg blocks to those with frontend Svelte components.
+ * Blocks not in this list won't appear in the editor.
+ * Update this list when adding new block components to the frontend.
+ */
+add_filter('allowed_block_types_all', function () {
+    return [
+        // Layout
+        'core/group',
+        'core/columns',
+        'core/column',
+        'core/cover',
+        'core/spacer',
+        'core/buttons',
+        'core/button',
+
+        // Content
+        'core/paragraph',
+        'core/heading',
+        'core/image',
+        'core/video',
+        'core/embed',
+        'core/list',
+        'core/list-item',
+        'core/quote',
+        'core/html',
+        'core/footnotes',
+
+        // Query
+        'core/latest-posts',
+        'core/query',
+        'core/post-template',
+        'core/query-no-results',
+        'core/query-pagination',
+        'core/query-pagination-previous',
+        'core/query-pagination-numbers',
+        'core/query-pagination-next',
+        'core/post-title',
+        'core/post-featured-image',
+        'core/post-date',
+
+        // Interactive
+        'core/accordion',
+        'core/accordion-item',
+        'core/accordion-panel',
+        'core/accordion-heading',
+    ];
+});
+
+/**
+ * Make custom image sizes available in the admin media picker.
+ */
+add_filter('image_size_names_choose', function ($sizes) {
+    return array_merge($sizes, [
+        'x_large' => __('Extra Large'),
+    ]);
+});
+
+/**
+ * Configure WebP Uploads plugin to generate both WebP and AVIF formats.
+ * Requires the webp-uploads plugin (included via Composer).
+ */
+add_filter('webp_uploads_upload_image_mime_transforms', function ($transforms) {
+    return [
+        'image/jpeg' => ['image/webp', 'image/avif'],
+        'image/png'  => ['image/webp', 'image/avif'],
+        'image/gif'  => ['image/webp'],
+    ];
 });
 
 /**

@@ -34,6 +34,20 @@ add_filter('register_block_type_args', function ($args, $name) {
         ];
     }
 
+    // Section behaviour / reveal / parallax extensions on core/group.
+    // The schema is registered here so values serialise into the saved markup
+    // and are exposed via GraphQL regardless of post type. The editor UI that
+    // sets these lives in resources/scripts/editor.js.
+    if ($name === 'core/group') {
+        $args['attributes']['sectionBehavior'] = ['type' => 'string', 'default' => 'normal'];
+        $args['attributes']['sectionMinHeight'] = ['type' => 'string', 'default' => 'auto'];
+        $args['attributes']['sectionContentAlign'] = ['type' => 'string', 'default' => 'center'];
+        $args['attributes']['sectionReveal'] = ['type' => 'string', 'default' => 'none'];
+        $args['attributes']['sectionRevealDirection'] = ['type' => 'string', 'default' => 'up'];
+        $args['attributes']['sectionRevealStagger'] = ['type' => 'number', 'default' => 60];
+        $args['attributes']['sectionParallax'] = ['type' => 'boolean', 'default' => false];
+    }
+
     return $args;
 }, 20, 2);
 
@@ -69,6 +83,22 @@ add_filter('graphql_coreColumnsAttributes_fields', function ($fields) use ($null
 
 add_filter('graphql_coreColumnAttributes_fields', function ($fields) use ($nullable_attrs) {
     return unwrap_nonnull_fields($fields, $nullable_attrs);
+});
+
+// Fix core/group attribute nullability, including the section extensions
+add_filter('graphql_coreGroupAttributes_fields', function ($fields) use ($nullable_attrs) {
+    return unwrap_nonnull_fields(
+        $fields,
+        array_merge($nullable_attrs, [
+            'sectionBehavior',
+            'sectionMinHeight',
+            'sectionContentAlign',
+            'sectionReveal',
+            'sectionRevealDirection',
+            'sectionRevealStagger',
+            'sectionParallax',
+        ])
+    );
 });
 
 /**

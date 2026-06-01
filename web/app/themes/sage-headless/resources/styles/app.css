@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -73,4 +75,21 @@
 	b {
 		@apply font-semibold;
 	}
+}
+
+/* Base text defaults. WordPress maps the `body` selector to
+   .editor-styles-wrapper when loading this via add_editor_style(). */
+body {
+	@apply font-sans text-base text-black;
+}
+
+/* Wide alignment preview (the SvelteKit frontend owns the rendered width). */
+.alignwide {
+	@apply max-w-[1100px] mx-auto;
+}
+
+/* Keep the post title compact in the editor (it isn't rendered on the front
+   end — the frontend uses its own heading styles). */
+h1.wp-block-post-title {
+	@apply text-base text-left mb-8;
 }

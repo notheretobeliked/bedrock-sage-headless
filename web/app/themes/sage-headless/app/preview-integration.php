@@ -442,11 +442,35 @@ add_filter('graphql_pre_resolve_field', function($result, $source, $args, $conte
  * initialized. This filter bypasses that check for revisions.
  */
 add_filter('graphql_pre_model_data_is_private', function($is_private, $model_name, $data) {
-    if ('PostObject' === $model_name && 'revision' === $data->post_type && is_preview_authenticated()) {
-        return false;
+    if ('PostObject' === $model_name && is_preview_authenticated()) {
+        if (in_array($data->post_type, ['revision', 'attachment'], true)) {
+            return false;
+        }
     }
     return $is_private;
 }, 10, 3);
+
+/**
+ * Fix ACF single image fields returning null in preview context.
+ *
+ * WPGraphQL's sanitize_post_stati() strips non-publish statuses when the
+ * current user can't edit_posts. Token-based preview auth doesn't set a
+ * real WordPress user (user remains 0), so attachments with 'inherit'
+ * status get filtered out. The Gallery resolver bypasses this by calling
+ * set_query_arg('post_status','any') after sanitization, but the Image
+ * resolver doesn't. This filter runs after sanitization and restores
+ * 'any' status for attachment queries during preview.
+ */
+add_filter('graphql_connection_query_args', function($query_args) {
+    if (
+        is_preview_authenticated()
+        && isset($query_args['post_type'])
+        && $query_args['post_type'] === 'attachment'
+    ) {
+        $query_args['post_status'] = 'any';
+    }
+    return $query_args;
+}, 10, 5);
 
 /**
  * Redirect public (non-admin, non-API) requests to the frontend.

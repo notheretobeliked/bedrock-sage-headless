@@ -1,3 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/**
+ * Core prose typography.
+ *
+ * This stylesheet is loaded into the block editor via add_editor_style()
+ * (see app/setup.php) — WordPress auto-scopes these selectors under
+ * .editor-styles-wrapper — and is also enqueued on the theme front end.
+ *
+ * In @layer components so the rules beat Tailwind's preflight reset (which
+ * otherwise strips heading sizes and paragraph margins, leaving the editor
+ * with no visual hierarchy). Keep the scale in sync with the SvelteKit
+ * frontend's base typography so the editor matches the rendered site.
+ */
+@layer components {
+	p {
+		@apply font-sans text-base mb-4;
+	}
+
+	h1 {
+		@apply font-sans text-2xl md:text-3xl lg:text-4xl mb-4;
+	}
+
+	h2 {
+		@apply font-sans text-xl md:text-2xl mb-3;
+	}
+
+	h3 {
+		@apply font-sans text-lg md:text-xl mb-3;
+	}
+
+	h4 {
+		@apply font-sans text-base md:text-lg mb-2;
+	}
+
+	h5,
+	h6 {
+		@apply font-sans text-sm md:text-base mb-2;
+	}
+
+	ul,
+	ol {
+		@apply font-sans text-base mb-4 pl-6;
+	}
+
+	ul {
+		@apply list-disc;
+	}
+
+	ol {
+		@apply list-decimal;
+	}
+
+	li {
+		@apply mb-1;
+	}
+
+	blockquote {
+		@apply my-4;
+	}
+
+	a {
+		@apply border-b border-dotted border-blue no-underline hover:text-blue;
+	}
+
+	sup a {
+		@apply border-none text-blue;
+	}
+
+	strong,
+	b {
+		@apply font-semibold;
+	}
+}
+
+/* Base text defaults. WordPress maps the `body` selector to
+   .editor-styles-wrapper when loading this via add_editor_style(). */
+body {
+	@apply font-sans text-base text-black;
+}
+
+/* Wide alignment preview (the SvelteKit frontend owns the rendered width). */
+.alignwide {
+	@apply max-w-[1100px] mx-auto;
+}
+
+/* Keep the post title compact in the editor (it isn't rendered on the front
+   end — the frontend uses its own heading styles). */
+h1.wp-block-post-title {
+	@apply text-base text-left mb-8;
+}
+
+/* Visualise core/group min-height + sticky + content alignment while authoring.
+   Classes are added by the editor.BlockListBlock HOC in editor.js. Loaded into
+   the editor via add_editor_style() (app/setup.php), so WordPress scopes these
+   under .editor-styles-wrapper. Inside the modern editor iframe vh resolves to
+   the canvas height, so 100vh accurately previews a "full screen" section.
+   (On the front end these classes never appear, so the rules are inert.) */
+.wp-block-group.section-editor-min-screen,
+.wp-block-group.section-editor-min-half {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	grid-auto-rows: max-content;
+	align-content: center; /* default: centered */
+}
+/* When min-height is set AND the group is NOT constrained ("Inner blocks use
+   content width" off), force children full width so the grid display doesn't
+   shrink them to content width. */
+.wp-block-group.section-editor-min-screen:not(.is-layout-constrained) > *,
+.wp-block-group.section-editor-min-half:not(.is-layout-constrained) > * {
+	max-width: none !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+.wp-block-group.section-editor-min-screen.is-layout-constrained > *:not(.alignfull):not(.alignwide),
+.wp-block-group.section-editor-min-half.is-layout-constrained > *:not(.alignfull):not(.alignwide) {
+	width: 100%;
+}
+.wp-block-group.section-editor-min-screen {
+	min-height: 100vh;
+}
+.wp-block-group.section-editor-min-half {
+	min-height: 50vh;
+}
+/* Content alignment overrides (default is center). */
+.wp-block-group.section-editor-align-top {
+	align-content: start;
+}
+.wp-block-group.section-editor-align-bottom {
+	align-content: end;
+}
+.wp-block-group.section-editor-align-stretch {
+	/* Single-row stretch — child fills the section height. */
+	grid-auto-rows: 1fr;
+	align-content: stretch;
+}
+/* Cue for sticky-stack behaviour (don't actually position: sticky here — that
+   breaks editing inside the block). Subtle left accent only. */
+.wp-block-group.section-editor-sticky {
+	box-shadow: inset 3px 0 0 var(--wp--preset--color--primary, #2563eb);
+}

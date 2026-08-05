@@ -28,24 +28,20 @@
     "issues": "https://github.com/roots/bedrock/issues",
     "forum": "https://discourse.roots.io/category/bedrock"
   },
-  "repositories": [
-    {
+  "repositories": {
+    "wp-packages": {
       "type": "composer",
-      "url": "https://wpackagist.org",
-      "only": [
-        "wpackagist-plugin/*",
-        "wpackagist-theme/*"
-      ]
+      "url": "https://repo.wp-packages.org"
     },
-    {
+    "1": {
       "type": "vcs",
       "url": "https://github.com/wpengine/wp-graphql-content-blocks.git"
     },
-    {
+    "2": {
       "type": "composer",
       "url": "https://connect.advancedcustomfields.com"
     }
-  ],
+  },
   "require": {
     "php": ">=8.0",
     "composer/installers": "^2.2",
@@ -55,16 +51,16 @@
     "roots/bedrock-disallow-indexing": "^2.0",
     "roots/wordpress": "^7",
     "roots/wp-config": "1.0.0",
-    "wpackagist-theme/twentytwentyfour": "^1.0",
+    "wp-theme/twentytwentyfour": "^1.0",
     "roots/acorn": "^5.0",
-    "wpackagist-plugin/wp-graphql": "2.9.0",
-    "wp-graphql/wpgraphql-acf": "^2",
+    "wp-plugin/wp-graphql": "^2",
+    "wp-plugin/wpgraphql-acf": "^2.7",
     "wpengine/wp-graphql-content-blocks": "*",
-    "wpackagist-plugin/webp-uploads": "^2",
+    "wp-plugin/webp-uploads": "^2",
     "log1x/poet": "^2",
-    "yoast/wordpress-seo": "^26",
+    "yoast/wordpress-seo": "^28",
     "ashhitch/wp-graphql-yoast-seo": "^5",
-    "wpackagist-plugin/simple-custom-post-order": "^2",
+    "wp-plugin/simple-custom-post-order": "^2",
     "wpengine/advanced-custom-fields-pro": "^6",
     "appsero/client": "2.0.4 as 1.2.1"
   },
